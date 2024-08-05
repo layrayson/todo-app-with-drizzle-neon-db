@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import RTQueryClient from "@/lib/components/wrappers/RTQueryClient";
+import { MUIThemeProvider } from "@/lib/components/wrappers/MuiThemeProvide";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <RTQueryClient>{children}</RTQueryClient>
+        <RTQueryClient>
+          <MUIThemeProvider>{children}</MUIThemeProvider>
+        </RTQueryClient>
       </body>
     </html>
   );
