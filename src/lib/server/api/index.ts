@@ -5,6 +5,7 @@ import {
   CreateTodoInput,
   DeleteTodoInput,
   FetchTodosResponse,
+  TodoInterface,
   UpdateTodoInput,
 } from "@/lib/types";
 
@@ -21,34 +22,51 @@ export class TodoService {
     }
   };
 
-  addTodo = async ({ task }: CreateTodoInput) => {
+  addTodo = async ({
+    task,
+  }: CreateTodoInput): Promise<TodoInterface | undefined> => {
     try {
-      return await db.insert(todos).values({ task }).returning().execute();
+      const data = await db
+        .insert(todos)
+        .values({ task })
+        .returning()
+        .execute();
+
+      return data[0];
     } catch (error) {
       handleError(error);
     }
   };
 
-  updateTodo = async ({ id, task, completed }: UpdateTodoInput) => {
+  updateTodo = async ({
+    id,
+    task,
+    completed,
+  }: UpdateTodoInput): Promise<TodoInterface | undefined> => {
     try {
-      return await db
+      const data = await db
         .update(todos)
         .set({ task, completed })
         .where(eq(todos.id, id))
         .returning()
         .execute();
+
+      return data[0];
     } catch (error) {
       handleError(error);
     }
   };
 
-  deleteTodo = async ({ id }: DeleteTodoInput) => {
+  deleteTodo = async ({
+    id,
+  }: DeleteTodoInput): Promise<TodoInterface | undefined> => {
     try {
-      return await db
+      const data = await db
         .delete(todos)
         .where(eq(todos.id, id))
         .returning()
         .execute();
+      return data[0];
     } catch (error) {
       handleError(error);
     }

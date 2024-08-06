@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+
 import RTQueryClient from "@/lib/components/wrappers/RTQueryClient";
 import { MUIThemeProvider } from "@/lib/components/wrappers/MuiThemeProvide";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <RTQueryClient>
-          <MUIThemeProvider>{children}</MUIThemeProvider>
+          <MUIThemeProvider>
+            <ToastContainer />
+            {children}
+          </MUIThemeProvider>
         </RTQueryClient>
       </body>
     </html>

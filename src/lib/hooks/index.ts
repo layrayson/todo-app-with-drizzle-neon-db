@@ -8,6 +8,7 @@ import {
   CreateTodoInput,
   DeleteTodoInput,
   FetchTodosResponse,
+  TodoInterface,
   UpdateTodoInput,
 } from "../types";
 import { TodoService } from "../server/api";
@@ -26,7 +27,12 @@ export const useFetchTodos = (
 
 export const useCreateTodo = (
   options?: Omit<
-    UseMutationOptions<any, unknown, CreateTodoInput, unknown>,
+    UseMutationOptions<
+      TodoInterface | undefined,
+      unknown,
+      CreateTodoInput,
+      unknown
+    >,
     "mutationFn"
   >
 ) =>
@@ -37,7 +43,12 @@ export const useCreateTodo = (
 
 export const useUpdateTodo = (
   options?: Omit<
-    UseMutationOptions<any, unknown, UpdateTodoInput, unknown>,
+    UseMutationOptions<
+      TodoInterface | undefined,
+      unknown,
+      UpdateTodoInput,
+      unknown
+    >,
     "mutationFn"
   >
 ) =>
@@ -48,7 +59,12 @@ export const useUpdateTodo = (
 
 export const useDeleteTodo = (
   options?: Omit<
-    UseMutationOptions<any, unknown, DeleteTodoInput, unknown>,
+    UseMutationOptions<
+      TodoInterface | undefined,
+      unknown,
+      DeleteTodoInput,
+      unknown
+    >,
     "mutationFn"
   >
 ) =>
