@@ -24,7 +24,7 @@ export default function RootLayout({
       <body>
         <RTQueryClient>
           <MUIThemeProvider>
-            <ToastContainer />
+            <ToastContainer position="bottom-left" autoClose={1000} />
             {children}
           </MUIThemeProvider>
         </RTQueryClient>

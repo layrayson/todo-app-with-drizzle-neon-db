@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { db } from "../db";
 import { todos } from "../schema";
 import {
@@ -16,7 +16,11 @@ const handleError = (error: any) => {
 export class TodoService {
   fetchTodos = async (): Promise<FetchTodosResponse | undefined> => {
     try {
-      return await db.select().from(todos).execute();
+      return await db
+        .select()
+        .from(todos)
+        .orderBy(desc(todos.createdAt))
+        .execute();
     } catch (error) {
       handleError(error);
     }

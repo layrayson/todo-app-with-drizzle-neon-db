@@ -1,17 +1,35 @@
 "use client";
 import { useFetchTodos } from "@/lib/hooks";
-import { Box } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { TodoTile } from "../TodoTile";
 
 type Props = {};
 export const ViewTodos = ({}: Props) => {
-  const { data: todos, isLoading, refetch } = useFetchTodos();
+  const { data: todos, isLoading } = useFetchTodos();
 
   return (
     <Box>
-      {todos?.map((el) => (
-        <TodoTile key={el.id} todo={el} />
-      ))}
+      {isLoading ? (
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          paddingY={4}
+        >
+          <CircularProgress />
+        </Box>
+      ) : todos?.length == 0 ? (
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          paddingY={4}
+        >
+          <Typography variant="h5">You have no todos</Typography>
+        </Box>
+      ) : (
+        todos?.map((el) => <TodoTile key={el.id} todo={el} />)
+      )}
     </Box>
   );
 };
